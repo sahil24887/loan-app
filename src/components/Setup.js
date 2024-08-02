@@ -20,10 +20,9 @@ function Setup({ prevStep }) {
   const fetchTransactions = async () => {
     const amountNum = parseFloat(amount);
     const rateNum = parseFloat(rate);
-    const rateSum = (amountNum * rateNum) / 100;
-    const sum = amountNum + rateSum;
+    const sum = amountNum * 1.2;
     setTotalAmount(sum);
-    setFees(rateSum);
+    setFees(sum - amountNum);
 
     if (accountId && token) {
       try {
@@ -112,13 +111,13 @@ function Setup({ prevStep }) {
   const handleAmountChange = (e) => {
     const value = e.target.value;
     setAmount(value);
-    setAmountError(value < 2000 || value > 125000);
+    setAmountError(value < 2500 || value > 300000);
   };
 
   const handleRateChange = (e) => {
     const value = e.target.value;
     setRate(value);
-    setRateError(value < 10 || value > 30);
+    setRateError(value < 5 || value > 25);
   };
 
   const handleRecalculate = () => {
@@ -143,7 +142,7 @@ function Setup({ prevStep }) {
               onChange={handleAmountChange}
               variant="outlined"
               type="number"
-              helperText={amountError ? "The amount needs to be between £2000 to £125000" : "You can request between £2000 - £125000"}
+              helperText={amountError ? "The amount needs to be between £2500 to £300000" : "You can request between £2500 - £300000"}
               error={amountError}
             />
           </FormControl>
@@ -156,7 +155,7 @@ function Setup({ prevStep }) {
               onChange={handleRateChange}
               variant="outlined"
               type="number"
-              helperText={rateError ? "The percentage needs to be between 10% to 30%" : "You can request between 10% - 30%"}
+              helperText={rateError ? "The percentage needs to be between 5% to 25%" : "You can request between 5% - 25%"}
               error={rateError}
             />
           </FormControl>
